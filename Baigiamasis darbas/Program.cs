@@ -1,4 +1,6 @@
 using Baigiamasis_darbas.Database;
+using Baigiamasis_darbas.Database.Repositories;
+using Baigiamasis_darbas.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +11,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.Services.AddScoped<IHouseRepository, HouseRepository>();
+builder.Services.AddScoped<IUserAddressRepository, UserAddressRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserInfoRepository, UserInfoRepository>();
+
 builder.Services.AddDbContext<DatabaseContext>
     (options => options.UseSqlServer
     (builder.Configuration.GetConnectionString

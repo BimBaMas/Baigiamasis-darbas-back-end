@@ -6,6 +6,7 @@ namespace Baigiamasis_darbas.Interfaces
     public interface IUserInfoRepository
     {
         public UserInfo Create(UserInfoDTO data);
+        public UserInfo GetById(int id);
         public string UpdateName(string data);
         public string UpdateSurname(string data);
         public string UpdatePersonalId(string data);
