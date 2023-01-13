@@ -24,22 +24,22 @@ namespace Baigiamasis_darbas.Database.Repositories
             throw new NotImplementedException();
         }
 
-        public string UpdateFlatNo(int id, string data)
+        public UserAddress UpdateFlatNo(int id, string data)
         {
             throw new NotImplementedException();
         }
 
-        public string UpdateHouseNo(int id, string data)
+        public UserAddress UpdateHouseNo(int id, string data)
         {
             throw new NotImplementedException();
         }
 
-        public string UpdateStreet(int id, string data)
+        public UserAddress UpdateStreet(int id, string data)
         {
             throw new NotImplementedException();
         }
 
-        public string UpdateTown(int id, string data)
+        public UserAddress UpdateTown(int id, string data)
         {
             throw new NotImplementedException();
         }

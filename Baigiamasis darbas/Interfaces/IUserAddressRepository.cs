@@ -7,9 +7,9 @@ namespace Baigiamasis_darbas.Interfaces
     {
         public UserAddress GetById(int id);
         public UserAddress Create(UserAddressDTO data);
-        public string UpdateTown(int id, string data);
-        public string UpdateStreet(int id, string data);
-        public string UpdateHouseNo(int id, string data);
-        public string UpdateFlatNo(int id, string data);
+        public UserAddress UpdateTown(int id, string data);
+        public UserAddress UpdateStreet(int id, string data);
+        public UserAddress UpdateHouseNo(int id, string data);
+        public UserAddress UpdateFlatNo(int id, string data);
     }
 }

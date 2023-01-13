@@ -21,32 +21,32 @@ namespace Baigiamasis_darbas.Database.Repositories
             throw new NotImplementedException();
         }
 
-        public byte[] UpdateAvatar(byte[] data)
+        public UserInfo UpdateAvatar(int id, byte[] data)
         {
             throw new NotImplementedException();
         }
 
-        public string UpdateEmail(string data)
+        public UserInfo UpdateEmail(int id, string data)
         {
             throw new NotImplementedException();
         }
 
-        public string UpdateName(string data)
+        public UserInfo UpdateName(int id, string data)
         {
             throw new NotImplementedException();
         }
 
-        public string UpdatePersonalId(string data)
+        public UserInfo UpdatePersonalId(int id, string data)
         {
             throw new NotImplementedException();
         }
 
-        public string UpdatePhoneNo(string data)
+        public UserInfo UpdatePhoneNo(int id, string data)
         {
             throw new NotImplementedException();
         }
 
-        public string UpdateSurname(string data)
+        public UserInfo UpdateSurname(int id, string data)
         {
             throw new NotImplementedException();
         }

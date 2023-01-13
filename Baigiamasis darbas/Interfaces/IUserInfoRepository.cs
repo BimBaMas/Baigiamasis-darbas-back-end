@@ -7,11 +7,11 @@ namespace Baigiamasis_darbas.Interfaces
     {
         public UserInfo Create(UserInfoDTO data);
         public UserInfo GetById(int id);
-        public string UpdateName(string data);
-        public string UpdateSurname(string data);
-        public string UpdatePersonalId(string data);
-        public string UpdatePhoneNo(string data);
-        public string UpdateEmail(string data);
-        public byte[] UpdateAvatar(byte[] data);
+        public UserInfo UpdateName(int id, string data);
+        public UserInfo UpdateSurname(int id, string data);
+        public UserInfo UpdatePersonalId(int id, string data);
+        public UserInfo UpdatePhoneNo(int id, string data);
+        public UserInfo UpdateEmail(int id, string data);
+        public UserInfo UpdateAvatar(int id, byte[] data);
     }
 }

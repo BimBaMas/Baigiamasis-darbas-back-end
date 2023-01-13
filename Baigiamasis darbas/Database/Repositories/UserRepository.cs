@@ -27,7 +27,7 @@ namespace Baigiamasis_darbas.Database.Repositories
             throw new NotImplementedException();
         }
 
-        public User Update(int id)
+        public User Update(int id, UserDTO value)
         {
             throw new NotImplementedException();
         }
