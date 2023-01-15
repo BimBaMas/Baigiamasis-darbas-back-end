@@ -16,32 +16,63 @@ namespace Baigiamasis_darbas.Database.Repositories
 
         public UserAddress Create(UserAddressDTO data)
         {
-            throw new NotImplementedException();
+            UserAddress userAddress = new UserAddress
+            {
+                Town = data.Town,
+                HouseNo = data.HouseNo,
+                FlatNo = data.FlatNo,
+                Street = data.Street
+
+            };
+            databaseContext.Addresses.Add(userAddress);
+            databaseContext.SaveChanges();
+            return userAddress;
         }
 
         public UserAddress GetById(int id)
         {
-            throw new NotImplementedException();
+            UserAddress userAddress = databaseContext.Addresses.FirstOrDefault(a => a.Id == id);
+            return userAddress;
         }
 
         public UserAddress UpdateFlatNo(int id, string data)
         {
-            throw new NotImplementedException();
+            UserAddress userAddress = databaseContext.Addresses.FirstOrDefault(a => a.Id == id);
+            if (userAddress == null)
+                return null;
+            userAddress.FlatNo = data;
+            databaseContext.SaveChanges();
+            return userAddress;
         }
 
         public UserAddress UpdateHouseNo(int id, string data)
         {
-            throw new NotImplementedException();
+            UserAddress userAddress = databaseContext.Addresses.FirstOrDefault(a => a.Id == id);
+            if (userAddress == null)
+                return null;
+            userAddress.HouseNo = data;
+            databaseContext.SaveChanges();
+            return userAddress;
         }
 
         public UserAddress UpdateStreet(int id, string data)
         {
-            throw new NotImplementedException();
+            UserAddress userAddress = databaseContext.Addresses.FirstOrDefault(a => a.Id == id);
+            if (userAddress == null)
+                return null;
+            userAddress.Street = data;
+            databaseContext.SaveChanges();
+            return userAddress;
         }
 
         public UserAddress UpdateTown(int id, string data)
         {
-            throw new NotImplementedException();
+            UserAddress userAddress = databaseContext.Addresses.FirstOrDefault(a => a.Id == id);
+            if (userAddress == null)
+                return null;
+            userAddress.Town = data;
+            databaseContext.SaveChanges();
+            return userAddress;
         }
     }
 }

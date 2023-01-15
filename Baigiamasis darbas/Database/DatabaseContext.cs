@@ -5,9 +5,9 @@ namespace Baigiamasis_darbas.Database
 {
     public class DatabaseContext : DbContext
     {
-        public DbSet<User> users { get; set; }
-        public DbSet<UserAddress> addresses { get; set; }
-        public DbSet<UserInfo> userInfo { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserAddress> Addresses { get; set; }
+        public DbSet<UserInfo> UserInfo { get; set; }
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
 
