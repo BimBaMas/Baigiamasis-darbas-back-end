@@ -4,6 +4,7 @@ using Baigiamasis_darbas.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Baigiamasisdarbas.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230118142050_test4")]
+    partial class test4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,13 +73,13 @@ namespace Baigiamasisdarbas.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int?>("UserInfoId")
                         .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
+                    b.HasIndex("UserInfoId")
                         .IsUnique();
 
                     b.ToTable("UserAddresses");
@@ -127,13 +130,13 @@ namespace Baigiamasisdarbas.Migrations
 
             modelBuilder.Entity("Baigiamasis_darbas.Database.Entities.UserAddress", b =>
                 {
-                    b.HasOne("Baigiamasis_darbas.Database.Entities.User", "User")
+                    b.HasOne("Baigiamasis_darbas.Database.Entities.UserInfo", "UserInfo")
                         .WithOne("UserAddress")
-                        .HasForeignKey("Baigiamasis_darbas.Database.Entities.UserAddress", "UserId")
+                        .HasForeignKey("Baigiamasis_darbas.Database.Entities.UserAddress", "UserInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("UserInfo");
                 });
 
             modelBuilder.Entity("Baigiamasis_darbas.Database.Entities.UserInfo", b =>
@@ -149,10 +152,13 @@ namespace Baigiamasisdarbas.Migrations
 
             modelBuilder.Entity("Baigiamasis_darbas.Database.Entities.User", b =>
                 {
-                    b.Navigation("UserAddress")
-                        .IsRequired();
-
                     b.Navigation("UserInfo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Baigiamasis_darbas.Database.Entities.UserInfo", b =>
+                {
+                    b.Navigation("UserAddress")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

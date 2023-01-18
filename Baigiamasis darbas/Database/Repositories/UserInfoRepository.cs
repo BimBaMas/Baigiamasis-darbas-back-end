@@ -1,6 +1,7 @@
 ﻿using Baigiamasis_darbas.Database.DTOs;
 using Baigiamasis_darbas.Database.Entities;
 using Baigiamasis_darbas.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Baigiamasis_darbas.Database.Repositories
 {
@@ -11,33 +12,37 @@ namespace Baigiamasis_darbas.Database.Repositories
         {
             this.databaseContext = databaseContext;
         }
+        public List<UserInfo> Get()
+        {
+            List<UserInfo> userInfo = databaseContext.UserInfo.ToList();
+            return userInfo;
+        }
+        public UserInfo GetById(int id)
+        {
+            UserInfo userInfo = databaseContext.UserInfo.FirstOrDefault(x => x.UserId == id);            
+            return userInfo;
+        }
+
         public UserInfo Create(UserInfoDTO data)
         {
             UserInfo userInfo = new UserInfo
-            { 
+            {
                 Name = data.Name,
                 Surname = data.Surname,
                 PersonalId = data.PersonalId,
                 PhoneNo = data.PhoneNo,
                 Email = data.Email,
-                Avatar = data.Avatar
+                Avatar = data.Avatar,
+                UserId = data.UserId
             };
             databaseContext.UserInfo.Add(userInfo);
             databaseContext.SaveChanges();
             return userInfo;
         }
 
-        public UserInfo GetById(int id)
-        {
-            UserInfo userInfo = databaseContext.UserInfo.FirstOrDefault(x => x.Id == id);
-            if (userInfo == null)
-                return null;
-            return userInfo;
-        }
-
         public UserInfo UpdateAvatar(int id, byte[] data)
         {
-            UserInfo userInfo = databaseContext.UserInfo.FirstOrDefault(x => x.Id == id);
+            UserInfo userInfo = databaseContext.UserInfo.FirstOrDefault(x => x.UserId == id);
             if (userInfo == null)
                 return null;
             userInfo.Avatar = data;
@@ -47,7 +52,7 @@ namespace Baigiamasis_darbas.Database.Repositories
 
         public UserInfo UpdateEmail(int id, string data)
         {
-            UserInfo userInfo = databaseContext.UserInfo.FirstOrDefault(x => x.Id == id);
+            UserInfo userInfo = databaseContext.UserInfo.FirstOrDefault(x => x.UserId == id);
             if (userInfo == null)
                 return null;
             userInfo.Email = data;
@@ -57,7 +62,7 @@ namespace Baigiamasis_darbas.Database.Repositories
 
         public UserInfo UpdateName(int id, string data)
         {
-            UserInfo userInfo = databaseContext.UserInfo.FirstOrDefault(x => x.Id == id);
+            UserInfo userInfo = databaseContext.UserInfo.FirstOrDefault(x => x.UserId == id);
             if (userInfo == null)
                 return null;
             userInfo.Name = data;
@@ -67,7 +72,7 @@ namespace Baigiamasis_darbas.Database.Repositories
 
         public UserInfo UpdatePersonalId(int id, string data)
         {
-            UserInfo userInfo = databaseContext.UserInfo.FirstOrDefault(x => x.Id == id);
+            UserInfo userInfo = databaseContext.UserInfo.FirstOrDefault(x => x.UserId == id);
             if (userInfo == null)
                 return null;
             userInfo.PersonalId = data;
@@ -77,7 +82,7 @@ namespace Baigiamasis_darbas.Database.Repositories
 
         public UserInfo UpdatePhoneNo(int id, string data)
         {
-            UserInfo userInfo = databaseContext.UserInfo.FirstOrDefault(x => x.Id == id);
+            UserInfo userInfo = databaseContext.UserInfo.FirstOrDefault(x => x.UserId == id);
             if (userInfo == null)
                 return null;
             userInfo.PhoneNo = data;
@@ -87,10 +92,19 @@ namespace Baigiamasis_darbas.Database.Repositories
 
         public UserInfo UpdateSurname(int id, string data)
         {
-            UserInfo userInfo = databaseContext.UserInfo.FirstOrDefault(x => x.Id == id);
+            UserInfo userInfo = databaseContext.UserInfo.FirstOrDefault(x => x.UserId == id);
             if (userInfo == null)
                 return null;
             userInfo.Surname = data;
+            databaseContext.SaveChanges();
+            return userInfo;
+        }
+        public UserInfo Delete(int id)
+        { 
+            UserInfo userInfo = databaseContext.UserInfo.FirstOrDefault(x => x.UserId == id);
+            if (userInfo == null)
+                return null;
+            databaseContext.UserInfo.Remove(userInfo);
             databaseContext.SaveChanges();
             return userInfo;
         }

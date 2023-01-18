@@ -21,23 +21,26 @@ namespace Baigiamasis_darbas.Database.Repositories
                 Town = data.Town,
                 HouseNo = data.HouseNo,
                 FlatNo = data.FlatNo,
-                Street = data.Street
-
+                Street = data.Street,
+                UserId = data.UserId
             };
-            databaseContext.Addresses.Add(userAddress);
+            databaseContext.UserAddresses.Add(userAddress);
             databaseContext.SaveChanges();
             return userAddress;
         }
-
+        public List<UserAddress> Get()
+        { 
+            return databaseContext.UserAddresses.ToList();
+        }
         public UserAddress GetById(int id)
         {
-            UserAddress userAddress = databaseContext.Addresses.FirstOrDefault(a => a.Id == id);
+            UserAddress userAddress = databaseContext.UserAddresses.FirstOrDefault(a => a.UserId == id);
             return userAddress;
         }
 
         public UserAddress UpdateFlatNo(int id, string data)
         {
-            UserAddress userAddress = databaseContext.Addresses.FirstOrDefault(a => a.Id == id);
+            UserAddress userAddress = databaseContext.UserAddresses.FirstOrDefault(a => a.UserId == id);
             if (userAddress == null)
                 return null;
             userAddress.FlatNo = data;
@@ -47,7 +50,7 @@ namespace Baigiamasis_darbas.Database.Repositories
 
         public UserAddress UpdateHouseNo(int id, string data)
         {
-            UserAddress userAddress = databaseContext.Addresses.FirstOrDefault(a => a.Id == id);
+            UserAddress userAddress = databaseContext.UserAddresses.FirstOrDefault(a => a.UserId == id);
             if (userAddress == null)
                 return null;
             userAddress.HouseNo = data;
@@ -57,7 +60,7 @@ namespace Baigiamasis_darbas.Database.Repositories
 
         public UserAddress UpdateStreet(int id, string data)
         {
-            UserAddress userAddress = databaseContext.Addresses.FirstOrDefault(a => a.Id == id);
+            UserAddress userAddress = databaseContext.UserAddresses.FirstOrDefault(a => a.UserId == id);
             if (userAddress == null)
                 return null;
             userAddress.Street = data;
@@ -67,11 +70,19 @@ namespace Baigiamasis_darbas.Database.Repositories
 
         public UserAddress UpdateTown(int id, string data)
         {
-            UserAddress userAddress = databaseContext.Addresses.FirstOrDefault(a => a.Id == id);
+            UserAddress userAddress = databaseContext.UserAddresses.FirstOrDefault(a => a.UserId == id);
             if (userAddress == null)
                 return null;
             userAddress.Town = data;
             databaseContext.SaveChanges();
+            return userAddress;
+        }
+        public UserAddress Delete(int id)
+        {
+            UserAddress userAddress = databaseContext.UserAddresses.FirstOrDefault(a => a.UserId == id);
+            if (userAddress == null)
+                return null;
+            databaseContext.UserAddresses.Remove(userAddress);
             return userAddress;
         }
     }

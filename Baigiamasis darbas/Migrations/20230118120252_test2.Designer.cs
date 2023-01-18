@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Baigiamasisdarbas.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230112180623_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20230118120252_test2")]
+    partial class test2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,16 +41,13 @@ namespace Baigiamasisdarbas.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserInfoId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("users");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Baigiamasis_darbas.Database.Entities.UserAddress", b =>
@@ -81,7 +78,10 @@ namespace Baigiamasisdarbas.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("addresses");
+                    b.HasIndex("UserInfoId")
+                        .IsUnique();
+
+                    b.ToTable("UserAddresses");
                 });
 
             modelBuilder.Entity("Baigiamasis_darbas.Database.Entities.UserInfo", b =>
@@ -91,9 +91,6 @@ namespace Baigiamasisdarbas.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Address")
-                        .HasColumnType("int");
 
                     b.Property<byte[]>("Avatar")
                         .IsRequired()
@@ -122,9 +119,57 @@ namespace Baigiamasisdarbas.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserId1")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("userInfo");
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.HasIndex("UserId1")
+                        .IsUnique()
+                        .HasFilter("[UserId1] IS NOT NULL");
+
+                    b.ToTable("UserInfo");
+                });
+
+            modelBuilder.Entity("Baigiamasis_darbas.Database.Entities.UserAddress", b =>
+                {
+                    b.HasOne("Baigiamasis_darbas.Database.Entities.UserInfo", "UserInfo")
+                        .WithOne("UserAddress")
+                        .HasForeignKey("Baigiamasis_darbas.Database.Entities.UserAddress", "UserInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserInfo");
+                });
+
+            modelBuilder.Entity("Baigiamasis_darbas.Database.Entities.UserInfo", b =>
+                {
+                    b.HasOne("Baigiamasis_darbas.Database.Entities.User", "User")
+                        .WithOne()
+                        .HasForeignKey("Baigiamasis_darbas.Database.Entities.UserInfo", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Baigiamasis_darbas.Database.Entities.User", null)
+                        .WithOne("UserInfo")
+                        .HasForeignKey("Baigiamasis_darbas.Database.Entities.UserInfo", "UserId1");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Baigiamasis_darbas.Database.Entities.User", b =>
+                {
+                    b.Navigation("UserInfo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Baigiamasis_darbas.Database.Entities.UserInfo", b =>
+                {
+                    b.Navigation("UserAddress")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

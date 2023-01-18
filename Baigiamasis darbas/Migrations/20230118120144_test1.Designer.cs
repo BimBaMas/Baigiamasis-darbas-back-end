@@ -4,6 +4,7 @@ using Baigiamasis_darbas.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Baigiamasisdarbas.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230118120144_test1")]
+    partial class test1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,13 +73,12 @@ namespace Baigiamasisdarbas.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .IsRequired()
+                    b.Property<int>("UserInfoId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
+                    b.HasIndex("UserInfoId")
                         .IsUnique();
 
                     b.ToTable("UserAddresses");
@@ -117,42 +119,56 @@ namespace Baigiamasisdarbas.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserId1")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId")
                         .IsUnique();
+
+                    b.HasIndex("UserId1")
+                        .IsUnique()
+                        .HasFilter("[UserId1] IS NOT NULL");
 
                     b.ToTable("UserInfo");
                 });
 
             modelBuilder.Entity("Baigiamasis_darbas.Database.Entities.UserAddress", b =>
                 {
-                    b.HasOne("Baigiamasis_darbas.Database.Entities.User", "User")
+                    b.HasOne("Baigiamasis_darbas.Database.Entities.UserInfo", "UserInfo")
                         .WithOne("UserAddress")
-                        .HasForeignKey("Baigiamasis_darbas.Database.Entities.UserAddress", "UserId")
+                        .HasForeignKey("Baigiamasis_darbas.Database.Entities.UserAddress", "UserInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("UserInfo");
                 });
 
             modelBuilder.Entity("Baigiamasis_darbas.Database.Entities.UserInfo", b =>
                 {
                     b.HasOne("Baigiamasis_darbas.Database.Entities.User", "User")
-                        .WithOne("UserInfo")
+                        .WithOne()
                         .HasForeignKey("Baigiamasis_darbas.Database.Entities.UserInfo", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Baigiamasis_darbas.Database.Entities.User", null)
+                        .WithOne("UserInfo")
+                        .HasForeignKey("Baigiamasis_darbas.Database.Entities.UserInfo", "UserId1");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("Baigiamasis_darbas.Database.Entities.User", b =>
                 {
-                    b.Navigation("UserAddress")
-                        .IsRequired();
-
                     b.Navigation("UserInfo")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Baigiamasis_darbas.Database.Entities.UserInfo", b =>
+                {
+                    b.Navigation("UserAddress")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

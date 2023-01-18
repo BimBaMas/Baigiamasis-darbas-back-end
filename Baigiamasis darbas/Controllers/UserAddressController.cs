@@ -3,12 +3,10 @@ using Baigiamasis_darbas.Database.Entities;
 using Baigiamasis_darbas.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Baigiamasis_darbas.Controllers
 {
     [Route("[controller]")]
-    [ApiController]    
+    [ApiController]
     public class UserAddressController : ControllerBase
     {
         private readonly IUserAddressRepository userAddressRepository;
@@ -16,8 +14,14 @@ namespace Baigiamasis_darbas.Controllers
         {
             this.userAddressRepository = userAddressRepository;
         }
-
         [HttpGet]
+        public ActionResult<List<UserAddress>> Get()
+        {
+            List<UserAddress> userAddresses = userAddressRepository.Get();
+            return userAddresses == null ? NotFound() : Ok(userAddresses);
+        }
+
+        [HttpGet("id")]
         public ActionResult<UserAddress> Get([FromQuery] int id)
         {
             UserAddress userAddress = userAddressRepository.GetById(id);
@@ -55,6 +59,12 @@ namespace Baigiamasis_darbas.Controllers
         public ActionResult<UserAddress> PutTown([FromQuery] int id, [FromQuery] string value)
         {
             UserAddress userAddress = userAddressRepository.UpdateTown(id, value);
+            return userAddress == null ? NotFound() : Ok(userAddress);
+        }
+        [HttpDelete]
+        public ActionResult<UserAddress> Delete([FromQuery] int id)
+        {
+            UserAddress userAddress = userAddressRepository.Delete(id);
             return userAddress == null ? NotFound() : Ok(userAddress);
         }
     }

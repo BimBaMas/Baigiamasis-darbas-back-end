@@ -17,6 +17,12 @@ namespace Baigiamasis_darbas.Controllers
             this.userInfoRepository = userInfoRepository;
         }
         [HttpGet]
+        public ActionResult<List<UserInfo>> Get()
+        {
+            List<UserInfo> userInfo = userInfoRepository.Get();
+            return userInfo == null ? NotFound() : Ok(userInfo);
+        }
+        [HttpGet("id")]
         public ActionResult<UserInfo> Get([FromQuery] int id)
         {
             UserInfo userInfo = userInfoRepository.GetById(id);
@@ -68,6 +74,12 @@ namespace Baigiamasis_darbas.Controllers
         public ActionResult<UserInfo> PutAvatar([FromQuery] int id, [FromQuery]byte[] value)
         {
             UserInfo userInfo = userInfoRepository.UpdateAvatar(id, value);
+            return userInfo == null ? NotFound() : Ok(userInfo);
+        }
+        [HttpDelete]
+        public ActionResult<UserInfo> Delete([FromQuery] int id)
+        {
+            UserInfo userInfo = userInfoRepository.Delete(id);
             return userInfo == null ? NotFound() : Ok(userInfo);
         }
     }

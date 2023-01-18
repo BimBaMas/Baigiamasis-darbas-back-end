@@ -15,31 +15,44 @@ namespace Baigiamasis_darbas.Controllers
         public UserController(IUserRepository userRepository)
         {
             this.userRepository = userRepository;
-        }        
-        
+        }
+        [HttpGet("user")]
+        public ActionResult<User> Get([FromQuery] string username)
+        {            
+            User user = userRepository.Get(username);
+            return user == null ? NotFound() : Ok(user);
+        }
+
         [HttpGet]
-        public ActionResult<User> Get([FromBody]UserDTO value)
+        public ActionResult<User> Get([FromQuery]string username, [FromQuery] string password)
         {
-            User user = userRepository.Get(value);
+            UserDTO userDTO = new UserDTO { Password = password, UserName = username};
+            User user = userRepository.Get(userDTO);
             return user == null ? NotFound() : Ok(user);
         }
         
         [HttpPost]
-        public ActionResult<User> Post([FromBody] UserDTO value)
+        public ActionResult<User> Create([FromBody] UserDTO value)
         {
             User user = userRepository.Create(value);
             return user == null ? NotFound() : Ok(user);
         }
         
-        [HttpPut("{id}")]
-        public ActionResult<User> Put(int id, [FromBody] UserDTO value)
+        [HttpPut]
+        public ActionResult<User> Put([FromQuery]int id, [FromBody] UserDTO value)
+        {
+            User user = userRepository.Update(id, value);
+            return user == null ? NotFound() : Ok(user);
+        }
+        [HttpPut("Role")]
+        public ActionResult<User> Put([FromQuery] int id, [FromQuery] string value)
         {
             User user = userRepository.Update(id, value);
             return user == null ? NotFound() : Ok(user);
         }
 
-        [HttpDelete("{id}")]
-        public ActionResult<User> Delete(int id)
+        [HttpDelete]
+        public ActionResult<User> Delete([FromQuery] int id)
         {
             User user = userRepository.Delete(id);
             return user == null ? NotFound() : Ok(user);
