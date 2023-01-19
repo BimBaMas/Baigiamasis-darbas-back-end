@@ -44,8 +44,7 @@ namespace Baigiamasis_darbas.Database.Repositories
         }
         public User Get(UserDTO data)
         {
-            User user = databaseContext.Users.FirstOrDefault(x => (x.Username == data.UserName && x.Password == data.Password));
-            User user2 = databaseContext.Users.Include("UserInfo").FirstOrDefault(x => (x.Username == data.UserName && x.Password == data.Password));
+            User user = databaseContext.Users.FirstOrDefault(x => (x.Username == data.UserName && x.Password == data.Password));            
             if (user == null)
                 return null;
             return user;
