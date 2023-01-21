@@ -35,6 +35,10 @@ namespace Baigiamasis_darbas.Database.Repositories
             databaseContext.SaveChanges();
             return user;
         }
+        public List<User> Get()
+        {
+            return databaseContext.Users.ToList();
+        }
         public User Get(string data)
         {
             User user = databaseContext.Users.FirstOrDefault(x => x.Username == data);

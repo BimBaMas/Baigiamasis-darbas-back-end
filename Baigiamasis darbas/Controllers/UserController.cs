@@ -16,6 +16,12 @@ namespace Baigiamasis_darbas.Controllers
         {
             this.userRepository = userRepository;
         }
+        [HttpGet("all")]
+        public ActionResult<List<User>> Get()
+        {
+            List<User> users = userRepository.Get();
+            return users == null ? NotFound() : Ok(users);
+        }
         [HttpGet("user")]
         public ActionResult<User> Get([FromQuery] string username)
         {            

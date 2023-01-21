@@ -12,7 +12,7 @@ namespace Baigiamasis_darbas.Database.Entities
         public string PersonalId { get; set; }
         public string PhoneNo { get; set; }
         public string Email { get; set; }
-        public byte[] Avatar { get; set; }                
+        //public byte[] Avatar { get; set; }                
         [ForeignKey("User")]
         public int UserId { get; set; }
         public User User { get; set; }

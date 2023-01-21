@@ -5,6 +5,7 @@ namespace Baigiamasis_darbas.Interfaces
 {
     public interface IUserRepository
     {
+        public List<User> Get();
         public User Get(string data);
         public User Get(UserDTO data);
         public User Create(UserDTO data);
