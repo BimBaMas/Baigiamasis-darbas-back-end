@@ -83,6 +83,7 @@ namespace Baigiamasis_darbas.Database.Repositories
             if (userAddress == null)
                 return null;
             databaseContext.UserAddresses.Remove(userAddress);
+            databaseContext.SaveChanges();
             return userAddress;
         }
     }

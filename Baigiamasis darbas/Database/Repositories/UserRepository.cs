@@ -1,13 +1,15 @@
 ﻿using Baigiamasis_darbas.Database.DTOs;
 using Baigiamasis_darbas.Database.Entities;
 using Baigiamasis_darbas.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace Baigiamasis_darbas.Database.Repositories
 {
     public class UserRepository : IUserRepository
     {
         private readonly DatabaseContext databaseContext;
+
+        
+
         public UserRepository(DatabaseContext databaseContext)
         {
             this.databaseContext = databaseContext;
@@ -63,6 +65,7 @@ namespace Baigiamasis_darbas.Database.Repositories
             databaseContext.SaveChanges();
             return user;
         }
+
         public User Update(int id, string value)
         {
             User user = databaseContext.Users.FirstOrDefault(x => x.Id == id);

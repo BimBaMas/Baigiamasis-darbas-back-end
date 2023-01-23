@@ -32,7 +32,7 @@ namespace Baigiamasis_darbas.Database.Repositories
                 PersonalId = data.PersonalId,
                 PhoneNo = data.PhoneNo,
                 Email = data.Email,
-               // Avatar = data.Avatar,
+                Avatar = Convert.FromBase64String(data.Avatar),
                 UserId = data.UserId
             };
             databaseContext.UserInfo.Add(userInfo);
@@ -40,12 +40,12 @@ namespace Baigiamasis_darbas.Database.Repositories
             return userInfo;
         }
 
-        public UserInfo UpdateAvatar(int id, byte[] data)
+        public UserInfo UpdateAvatar(int id, UserInfoDTO data)
         {
             UserInfo userInfo = databaseContext.UserInfo.FirstOrDefault(x => x.UserId == id);
             if (userInfo == null)
                 return null;
-            // userInfo.Avatar = data;
+            userInfo.Avatar = Convert.FromBase64String(data.Avatar);
             databaseContext.SaveChanges();            
             return userInfo;
         }
