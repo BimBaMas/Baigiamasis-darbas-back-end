@@ -11,7 +11,7 @@ namespace Baigiamasis_darbas.Database.Entities
         public string Password { get; set; }
         public string Role { get; set; }        
         public virtual UserInfo UserInfo { get; set; }
-        public virtual UserAddress UserAddress { get; set; }
+        
         
     }
 }

@@ -13,8 +13,9 @@ namespace Baigiamasis_darbas.Database.Entities
         public string PhoneNo { get; set; }
         public string Email { get; set; }
         public byte[] Avatar { get; set; }                
-        [ForeignKey("User")]
+        [Key, ForeignKey("User")]
         public int UserId { get; set; }
         public User User { get; set; }
+        public virtual UserAddress UserAddress { get; set; }
     }
 }

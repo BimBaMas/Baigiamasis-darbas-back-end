@@ -9,7 +9,7 @@ namespace BaigiamasisDarbasTest
     public class TestUserRepository
     {
         DbContextOptions<DatabaseContext> options = new DbContextOptionsBuilder<DatabaseContext>()
-                .UseSqlServer("Data Source=.;Initial Catalog=BaigiamasisDarbas;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
+                .UseSqlServer("Data Source=.;Initial Catalog=BaigiamasisDarbas_Mock;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
                 .Options;
 
         UserRepository userRepository;
