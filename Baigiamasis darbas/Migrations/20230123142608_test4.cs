@@ -5,7 +5,7 @@
 namespace Baigiamasisdarbas.Migrations
 {
     /// <inheritdoc />
-    public partial class test1 : Migration
+    public partial class test4 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,29 +31,24 @@ namespace Baigiamasisdarbas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PersonalId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Avatar = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    UserId1 = table.Column<int>(type: "int", nullable: true)
+                    Avatar = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserInfo", x => x.Id);
+                    table.PrimaryKey("PK_UserInfo", x => new { x.Id, x.UserId });
+                    table.UniqueConstraint("AK_UserInfo_UserId", x => x.UserId);
                     table.ForeignKey(
                         name: "FK_UserInfo_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserInfo_Users_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "Users",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -66,37 +61,24 @@ namespace Baigiamasisdarbas.Migrations
                     Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HouseNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FlatNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserInfoId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserAddresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserAddresses_UserInfo_UserInfoId",
-                        column: x => x.UserInfoId,
+                        name: "FK_UserAddresses_UserInfo_UserId",
+                        column: x => x.UserId,
                         principalTable: "UserInfo",
-                        principalColumn: "Id",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAddresses_UserInfoId",
+                name: "IX_UserAddresses_UserId",
                 table: "UserAddresses",
-                column: "UserInfoId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserInfo_UserId",
-                table: "UserInfo",
                 column: "UserId",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserInfo_UserId1",
-                table: "UserInfo",
-                column: "UserId1",
-                unique: true,
-                filter: "[UserId1] IS NOT NULL");
         }
 
         /// <inheritdoc />

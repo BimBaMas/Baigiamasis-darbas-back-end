@@ -11,8 +11,8 @@ namespace Baigiamasis_darbas.Database.Entities
         public string Street { get; set; }
         public string HouseNo { get; set; }
         public string? FlatNo { get; set; }
-        [ForeignKey("User")]
-        public int? UserId { get; set; }
-        public virtual User User { get; set; }
+        [ForeignKey("UserInfo.UserId")]
+        public int UserId { get; set; }
+        public virtual UserInfo UserInfo { get; set; }
     }
 }
