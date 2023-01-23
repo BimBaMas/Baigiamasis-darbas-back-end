@@ -71,7 +71,7 @@ namespace Baigiamasis_darbas.Controllers
             return userInfo == null ? NotFound() : Ok(userInfo);
         }
         [HttpPut("Avatar")]
-        public ActionResult<UserInfo> PutAvatar([FromQuery] int id, [FromQuery]byte[] value)
+        public ActionResult<UserInfo> PutAvatar([FromQuery] int id, [FromBody] UserInfoDTO value)
         {
             UserInfo userInfo = userInfoRepository.UpdateAvatar(id, value);
             return userInfo == null ? NotFound() : Ok(userInfo);

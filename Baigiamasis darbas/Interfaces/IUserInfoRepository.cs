@@ -13,7 +13,7 @@ namespace Baigiamasis_darbas.Interfaces
         public UserInfo UpdatePersonalId(int id, string data);
         public UserInfo UpdatePhoneNo(int id, string data);
         public UserInfo UpdateEmail(int id, string data);
-        public UserInfo UpdateAvatar(int id, byte[] data);
+        public UserInfo UpdateAvatar(int id, UserInfoDTO data);
         public UserInfo Delete(int id);
     }
 }
